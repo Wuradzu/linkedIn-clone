@@ -35,7 +35,7 @@ const RightSide = () => {
                 </Recommendation>
             </FollowCard>
             <BannerCard>
-                <img src="/images/dream.jpg" alt="dream job"/>
+                <img src="/images/jobs-ad.jpg" alt="jobs ad"/>
             </BannerCard>
         </Container>
     );

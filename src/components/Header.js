@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components'
+import {connect} from "react-redux";
+import {signOutAPI} from "../actions";
+import {Redirect} from "react-router-dom";
 
-const Header = () => {
+const Header = (props) => {
+    console.log(props?.user?.photoURL)
     return (
         <Container>
             <Content>
@@ -50,12 +54,12 @@ const Header = () => {
                         </NavList>
                         <User>
                             <a>
-                                <img src="/images/user.svg" alt="user"/>
+                                {props.user && props.user.photoURL ? (<img src={props.user.photoURL} alt="user"/>)
+                                : (<img src="/images/user.svg" alt="user"/>)}
                                 <span>Me
-                                <img src="/images/down-icon.svg" alt="down-menu"/></span>
-
-
-                                <SignOut><a>Sign Out</a></SignOut>
+                                <img src="/images/down-icon.svg" alt="down-menu"/>
+                                </span>
+                                <SignOut><a onClick={(e) => {props.signOutAPI()}}>Sign Out</a></SignOut>
                             </a>
                         </User>
                         <Work>
@@ -245,6 +249,10 @@ const Work = styled(User)`
 border-left: 1px solid rgba(0,0,0,0.08);
 `;
 
+const mapStateToProps = (state) =>{
+    return {
+        user: state.userState.user
+    }
+}
 
-
-export default Header;
+export default connect(mapStateToProps, {signOutAPI})(Header);
