@@ -1,13 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components'
+import PostModal from "./PostModal";
 
 const Main = () => {
+    const [showModal, setShowModal] = useState('close')
+
+    const handleClick = (e) => {
+        e.preventDefault()
+
+        if (e.target !== e.currentTarget) {
+            return
+        }
+
+        switch(showModal) {
+            case 'close':
+                setShowModal('open')
+                break;
+            case 'open':
+                setShowModal('close')
+                break;
+            default:
+                setShowModal('close');
+                break;
+        }
+    }
     return (
         <Container>
             <ShareBox>
                 <div>
                     <img src="/images/user.svg" alt="user-image"/>
-                    <button>Start a post</button>
+                    <button onClick={handleClick}>Start a post</button>
                 </div>
                 <div>
                     <button>
@@ -85,6 +107,7 @@ const Main = () => {
                     </SocialActions>
                 </Article>
             </div>
+            <PostModal handleClick={handleClick} showModal={showModal}/>
         </Container>
     );
 };
@@ -274,21 +297,22 @@ const SocialCounts = styled.ul`
 `;
 
 const SocialActions = styled.div`
-    align-items: center;
+  align-items: center;
   display: flex;
   justify-content: flex-start;
   margin: 0;
   min-height: 40px;
   padding: 4px 8px;
-  button{
+
+  button {
     display: inline-flex;
     align-items: center;
     padding: 8px;
     color: #0a66c2;
     width: 25%;
     justify-content: center;
-    @media(min-width: 768px){
-      span{
+    @media (min-width: 768px) {
+      span {
         margin-left: 8px;
       }
     }
